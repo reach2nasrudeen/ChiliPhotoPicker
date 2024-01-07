@@ -37,7 +37,7 @@ internal class ImagePickerAdapter(
     override fun onBindViewHolder(holder: ImagePickerViewHolder, position: Int) {
         val item = getItem(position)
         holder.view.apply {
-            imageLoader.loadImage(context, photo_item, item.uri)
+            item.uri?.let { imageLoader.loadImage(context, photo_item, it) }
             setOnClickListener { onImageClick(getItem(position)) }
             checkbox.isChecked = item.selected
         }

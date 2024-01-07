@@ -22,47 +22,36 @@
             android:layout_height="match_parent"
             android:minHeight="256dp">
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/gallery_container"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:background="?selectableItemBackground"
-                app:layout_constraintEnd_toStartOf="@id/camera_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/gallery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <View
+                    android:layout_width="35dp"
+                    android:layout_height="5dp"
                     android:layout_gravity="center"
-                    android:drawableStart="?pickerGalleryIcon"
-                    android:drawablePadding="14dp"
-                    android:gravity="center"
-                    android:text="@string/picker_gallery"
-                    android:textAppearance="@style/TextAppearance.PhotoPicker.Button" />
-            </FrameLayout>
+                    android:background="@drawable/ic_vd_drag_handle"
+                    android:scaleType="fitXY" />
 
-            <FrameLayout
-                android:id="@+id/camera_container"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:background="?selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/gallery_container"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:visibility="invisible"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/tv_folder_name"
+                    tools:text="Folder Name"
                     android:layout_gravity="center"
-                    android:drawableStart="?pickerCameraIcon"
-                    android:drawablePadding="14dp"
                     android:gravity="center"
-                    android:text="@string/picker_camera"
-                    android:textAppearance="@style/TextAppearance.PhotoPicker.Button" />
-            </FrameLayout>
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    app:drawableEndCompat="@drawable/ic_vd_drop_down"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/barrier"
@@ -73,13 +62,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gallery_container" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/empty_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
                 android:gravity="center"
                 android:paddingLeft="32dp"
+                android:visibility="gone"
                 android:paddingRight="32dp"
                 android:text="@string/picker_empty_media"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -102,13 +92,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/barrier"
                 app:spanCount="3"
                 tools:listitem="@layout/view_pickable_image" />
-
-            <include
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
+            <!--<include
                 layout="@layout/view_grant_permission"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
             <ProgressBar
@@ -118,7 +115,7 @@
                 android:layout_marginTop="64dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/barrier" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

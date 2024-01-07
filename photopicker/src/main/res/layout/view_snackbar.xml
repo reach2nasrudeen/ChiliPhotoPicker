@@ -6,7 +6,7 @@
     android:layout_height="64dp"
     android:background="?attr/pickerBackgroundColor">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_picker_cancel" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="3 photos selected" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +37,7 @@
         android:background="?selectableItemBackgroundBorderless"
         android:text="@string/picker_select"
         android:textAllCaps="true"
+        tools:text="Select"
         android:textColor="?attr/pickerControlColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,8 +1,6 @@
 package lv.chi.photopicker
 
-import android.database.Cursor
 import android.net.Uri
-import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -47,17 +45,9 @@ internal class PickerViewModel : ViewModel() {
         }
     }
 
-    fun setPhotos(cursor: Cursor?) {
-        cursor?.let { c ->
-            val array = arrayListOf<SelectableImage>()
-            array.addAll(
-                generateSequence { if (c.moveToNext()) c else null }
-                    .map { readValueAtCursor(cursor) }
-                    .toList()
-            )
-            hasContentData.postValue(array.isNotEmpty())
-            photosData.postValue(array)
-        }
+    fun setPhotos(photos: List<SelectableImage>) {
+        hasContentData.postValue(photos.isNotEmpty())
+        photosData.postValue(photos as ArrayList<SelectableImage>?)
     }
 
     fun setInProgress(progress: Boolean) {
@@ -70,7 +60,7 @@ internal class PickerViewModel : ViewModel() {
 
             when {
                 photo.selected -> selected.remove(photo.uri)
-                canSelectMore(selected.size) -> selected.add(photo.uri)
+                canSelectMore(selected.size) -> photo.uri?.let { selected.add(it) }
                 else -> {
                     maxSelectionReachedData.postValue(Unit)
                     return@launch
@@ -87,13 +77,8 @@ internal class PickerViewModel : ViewModel() {
         }
     }
 
-    private fun canSelectMore(size: Int) = maxSelectionCount == SELECTION_UNDEFINED || maxSelectionCount > size
-
-    private fun readValueAtCursor(cursor: Cursor): SelectableImage {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID))
-        val uri = "file://${cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA))}"
-        return SelectableImage(id, Uri.parse(uri), false)
-    }
+    private fun canSelectMore(size: Int) =
+        maxSelectionCount == SELECTION_UNDEFINED || maxSelectionCount > size
 
     companion object {
         const val SELECTION_UNDEFINED = -1

@@ -6,6 +6,7 @@ import android.text.method.ScrollingMovementMethod
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import lv.chi.photopicker.PhotoPickerFragment
+import lv.chi.photopicker.adapter.SelectableImage
 
 class MainActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
         picked_url.movementMethod = ScrollingMovementMethod()
     }
 
-    override fun onImagesPicked(photos: ArrayList<Uri>) {
+    override fun onImagesPicked(photos: ArrayList<SelectableImage>) {
         picked_url.text = photos.joinToString(separator = "\n") { it.toString() }
     }
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
         PhotoPickerFragment.newInstance(
             multiple = true,
             allowCamera = true,
-            maxSelection = 5,
+            maxSelection = 3,
             theme = R.style.ChiliPhotoPicker_Dark
         ).show(supportFragmentManager, "picker")
     }
